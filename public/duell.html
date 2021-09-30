@@ -35,7 +35,7 @@
 					'Content-Type': 'application/json',
 					'Accept': 'application/json',
 				},
-				body: JSON.stringify({query: `{ champion (champA: "${champSelectorA.value}", champB: "${champSelectorB.value}") {name, skillOrder }}`})
+				body: JSON.stringify({query: `{ champion (champA: "${champSelectorA.value}", champB: "${champSelectorB.value}") {name, skillOrder }}`, variables:{champSelectorA.value, champSelectorB.value}})
 			}).then(r => r.json())
 			.then(data => {
 				if('errors' in data) {

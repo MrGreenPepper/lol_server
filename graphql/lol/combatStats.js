@@ -10,6 +10,8 @@ const ChampionType = new GraphQLObjectType({
     description: 'one Champion',
     fields: () => ({
         name: { type: GraphQLString },
+        champA: { type: GraphQLString },
+        champB: { type: GraphQLString },
         baseStats: { type: GraphQLList(GraphQLInt) },
         skillOrder: { type: GraphQLList(GraphQLString) },
     }),
@@ -31,20 +33,9 @@ const RootQueryType = new GraphQLObjectType({
                 console.log(champB);
                 let baseDataPath = `../../data/lol/combatData/combatStats_${champA}_vs_${champB}_data.json`;
                 let currentPath = path.resolve(__dirname, baseDataPath);
-                // try {
                 let championData = JSON.parse(fs.readFileSync(currentPath, 'utf8'));
                 console.log(championData.name);
                 return championData;
-                // } catch (err) {
-                //     return { succes: false };
-                // }
-                // let championData = promiseReadFile(currentPath, 'utf8', (err, data) => {
-                //     if (err) return console.error(err);
-                //     else return data;
-                // }).then((data) => {
-                //     console.log(championData.name);
-                //     return championData;
-                // });
             },
         },
     }),
