@@ -25,7 +25,7 @@
 
 
 		});		
-
+	//TODO: selector logic ... same champs ... change 1 change 2  change both
 		champSelectorA.onchange = () => {
 			console.log(champSelectorA.value)
 
@@ -35,16 +35,39 @@
 					'Content-Type': 'application/json',
 					'Accept': 'application/json',
 				},
-				body: JSON.stringify({query: `{ champion (champA: "${champSelectorA.value}", champB: "${champSelectorB.value}") {name, skillOrder }}`, variables:{champSelectorA.value, champSelectorB.value}})
-			}).then(r => r.json())
-			.then(data => {
-				if('errors' in data) {
-					console.log('cant find data')
-					$('#data').html('Sorry cant find that data, maybe try another champ ;_)')
-				} else {
-					console.log('data returned:', data)
-					$('.left_data').html(JSON.stringify(data))
-				}
+				body: JSON.stringify({query: `{ champion (champA: "${champSelectorA.value}", champB: "${champSelectorB.value}") {name, skillOrder }}`})
+				}).then(r => r.json())
+				.then(data => {
+					if('errors' in data) {
+						console.log('cant find data')
+						$('.left_data').html('Sorry cant find that data, maybe try another champ ;_)')
+					} else {
+						console.log('data returned:', data)
+						$('.left_data').html(JSON.stringify(data))
+					}
+			});
+							// console.log(baseData)
+		}
+
+		champSelectorB.onchange = () => {
+			console.log(champSelectorB.value)
+
+			fetch('/graphql/lol/combatStats', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'Accept': 'application/json',
+				},
+				body: JSON.stringify({query: `{ champion (champA: "${champSelectorB.value}", champB: "${champSelectorA.value}") {name, skillOrder }}`})
+				}).then(r => r.json())
+				.then(data => {
+					if('errors' in data) {
+						console.log('cant find data')
+						$('.right_data').html('Sorry cant find that data, maybe try another champ ;_)')
+					} else {
+						console.log('data returned:', data)
+						$('.right_data').html(JSON.stringify(data))
+					}
 			});
 							// console.log(baseData)
 		}
@@ -53,6 +76,8 @@
 </head>
 
 <body>
+	<i>data calculation and bugfixing in progress ;_) try champs starting with a or run lol_calculator for some hours</i> <br><br>
+
 	<table>
 		<tr>
 			<form>
@@ -71,6 +96,8 @@
 			</form>
 		</tr>
 	</table>
+	<br>
+	<br>
 <div class ="left_data"></div>	
 <div class ="right_data"></div>	
 </body>

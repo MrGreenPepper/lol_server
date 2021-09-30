@@ -26,22 +26,10 @@ const RootQueryType = new GraphQLObjectType({
 
             resolve: (parent, args) => {
                 let championName = args.name.toLowerCase();
+                // console.log(championData.name);
                 let baseDataPath = `../../data/lol/baseData/${championName}_data.json`;
                 let currentPath = path.resolve(__dirname, baseDataPath);
-                // try {
                 let championData = JSON.parse(fs.readFileSync(currentPath, 'utf8'));
-                console.log(championData.name);
-                return championData;
-                // } catch (err) {
-                //     return { succes: false };
-                // }
-                // let championData = promiseReadFile(currentPath, 'utf8', (err, data) => {
-                //     if (err) return console.error(err);
-                //     else return data;
-                // }).then((data) => {
-                //     console.log(championData.name);
-                //     return championData;
-                // });
             },
         },
     }),

@@ -3,7 +3,7 @@ h1 {
 }
 
 body {
-	background-color: #f5f5dc;
+	background-color: #f5f5f5;
 	font-size: 18px;
 }
 
@@ -16,20 +16,21 @@ a {
 
 a:hover {
 	
-	background-color: #f5f5ff;
+	background-color: #ffffff;
 	padding-left: 5;
 	padding-right: 5;
 }
+div{
 
+	/* border:1px solid black; */
+}
 div.header {
 	text-align: center;
-	border:1px solid black;
 }
 
 div.linkList
 
  {	width: 20%;
-	border:1px solid black;
 	padding: 10;
 	position: absolute;
 	float: left;
@@ -43,7 +44,24 @@ div.mainFrame {
 	margin-left: auto;
     margin-right: 0;
 	position: relative;
-	border:1px solid black;
 	padding: 10;
 	float: right;
+}
+
+div.left_data {
+	width: 45%;
+	padding: 10;
+	position: absolute;
+	float: left;
+	white-space: pre-wrap;
+
+}
+div.right_data {
+	width: 45%;
+	margin-left: auto;
+    margin-right: 0;
+	position: relative;
+	padding: 10;
+	float: right;
+	white-space: pre-wrap;
 }
