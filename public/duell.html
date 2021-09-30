@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- <script type="text/javascript" src="createChampSelector.js"> -->
+	<script>
+		axios.get('/lol/championList').then((data) => {
+			let championList = data.data.data;
+			console.log("championList: ", championList)
+			let champSelectorA = document.getElementById('champSelectorA');
+			let champSelectorB = document.getElementById('champSelectorB');
+
+			championList.forEach(championName => {
+				var opt = document.createElement('option');
+				opt.value = championName;
+				opt.innerHTML = championName;
+				champSelectorA.appendChild(opt);
+			});
+
+			championList.forEach(championName => {
+				var opt = document.createElement('option');
+				opt.value = championName;
+				opt.innerHTML = championName;
+				champSelectorB.appendChild(opt);
+			});
+
+
+		});		
+
+		champSelectorA.onchange = () => {
+			console.log(champSelectorA.value)
+
+			fetch('/graphql/lol/combatStats', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'Accept': 'application/json',
+				},
+				body: JSON.stringify({query: `{ champion (champA: "${champSelectorA.value}", champB: "${champSelectorB.value}") {name, skillOrder }}`})
+			}).then(r => r.json())
+			.then(data => {
+				if('errors' in data) {
+					console.log('cant find data')
+					$('#data').html('Sorry cant find that data, maybe try another champ ;_)')
+				} else {
+					console.log('data returned:', data)
+					$('.left_data').html(JSON.stringify(data))
+				}
+			});
+							// console.log(baseData)
+		}
+	</script>
+
+</head>
+
+<body>
+	<table>
+		<tr>
+			<form>
+				<label>Champion:
+				<select id="champSelectorA" size="1">
+				</select>
+				</label>
+			</form>
+		</tr>
+		<tr>
+			<form>
+				<label>Champion:
+				<select id="champSelectorB" size="1">
+				</select>
+				</label>
+			</form>
+		</tr>
+	</table>
+<div class ="left_data"></div>	
+<div class ="right_data"></div>	
+</body>
+</html>

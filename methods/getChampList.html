@@ -1,0 +1,29 @@
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+crossorigin="anonymous"
+></script>
+<script>
+const result = document.querySelector('.result')
+
+const fetchPeople = async () => {
+  try {
+	const { championList } = await axios.get('/championList')
+
+	
+	result.innerHTML = people.join('')
+  } catch (error) {
+	result.innerHTML = `<div class="alert alert-danger">Can't Fetch Data</div>`
+  }
+}
+fetchPeople()
+// submit form
+const btn = document.querySelector('.submit-btn')
+const input = document.querySelector('.form-input')
+const formAlert = document.querySelector('.form-alert')
+btn.addEventListener('click', async (e) => {
+  e.preventDefault()
+  const nameValue = input.value
+
+})
+</script>

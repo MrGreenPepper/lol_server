@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- <script type="text/javascript" src="createChampSelector.js"> -->
+	<script>
+		let mainFrame = document.getElementById('mainFrame')
+		axios.get('/lol/championList').then((data) => {
+			let championList = data.data.data;
+			console.log("championList: ", championList)
+			let champSelector = document.getElementById('champSelector');
+			console.log(champSelector.innerHTML);
+			championList.forEach(championName => {
+				
+				var opt = document.createElement('option');
+				opt.value = championName;
+				opt.innerHTML = championName;
+				champSelector.appendChild(opt);
+			
+			});
+
+		});		
+		champSelector.onchange = () => {
+			console.log(champSelector.value)
+
+			fetch('/graphql/lol/baseStats', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'Accept': 'application/json',
+				},
+				body: JSON.stringify({query: `{ champion (name: "${champSelector.value}") {name, skillOrder }}`})
+			}).then(r => r.json())
+			.then(data => {
+				if('errors' in data) {
+					console.log('cant find data')
+					$('#data').html('Sorry cant find that data, maybe try another champ ;_)')
+				} else {
+					console.log('data returned:', data)
+					$('#data').html(JSON.stringify(data))
+				}
+			});
+							// console.log(baseData)
+		}
+	</script>
+
+</head>
+
+<body>
+	<form >
+		<!-- <link rel="import" href="/lol/champSelector.html"> -->
+		<form>
+			<label>Champion:
+			  <select id="champSelector" size="1">
+			  </select>
+			</label>
+		  </form>
+	  </form>
+	<div id='data' class = 'data'></div>
+</body>
+</html>
