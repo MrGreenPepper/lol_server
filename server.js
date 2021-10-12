@@ -13,7 +13,7 @@ app.use('/lol', lol_router);
 app.use('/graphql/lol/combatStats', lol_gQL_combatStats);
 app.use('/graphql/lol/baseStats', lol_gQL_baseStats);
 app.use(morgan('tiny'));
-app.use(express.static('./public'));
+app.use(express.static('./client/public'));
 app.listen(PORT, () => {
     console.log(`server started and listening to port ${PORT}`);
 });
