@@ -36,7 +36,7 @@
 					'Accept': 'application/json',
 				},
 				body: JSON.stringify({query: `{ champion (champA: "${champSelectorA.value}", champB: "${champSelectorB.value}") {name, skillOrder }}`})
-				}).then(r => r.json())
+				}).then(r => r.json() )
 				.then(data => {
 					if('errors' in data) {
 						console.log('cant find data')
@@ -48,7 +48,7 @@
 			});
 							// console.log(baseData)
 		}
-
+bbbbbbbb+üü+ü+ü+              +ü  ttttytrrrreeeeeeeeeeweeeeeeeeeeeddddcccceerr																						ttt
 		champSelectorB.onchange = () => {
 			console.log(champSelectorB.value)
 
